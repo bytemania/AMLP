@@ -1,0 +1,76 @@
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc} 
+\usepackage[T1]{fontenc}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={My Example},
+    pdfpagemode=FullScreen,
+    bookmarksdepth=3
+    }
+\urlstyle{same}
+
+\usepackage[acronym]{glossaries}
+\renewcommand{\glossaryname}{Acronyms and Abbreviations}
+\makeglossaries
+
+\renewcommand{\contentsname}{Table of Contents}
+
+\usepackage{float}
+
+\usepackage[style=apa,backend=biber]{biblatex}
+\addbibresource{sections/back/refs.bib}
+
+
+\usepackage{graphics}
+\usepackage{graphicx}
+% \usepackage{subfig}
+\graphicspath{{./img/}}
+
+\usepackage{caption}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{array}
+\usepackage[table]{xcolor}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{multirow}
+\renewcommand{\arraystretch}{1.5} % table line vspace
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{xcolor}
+\definecolor{codebg}{gray}{0.98}
+\setminted{
+    linenos, 
+    fontsize=\small, 
+    bgcolor=codebg,
+    style=tango
+}
+
+
+\makeatletter
+\let\l@listing\l@figure
+\makeatother
+
+\setlength{\parskip}{8pt}
+\setlength{\parindent}{0pt}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=gray!25]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+
+\usepackage{verbatim}

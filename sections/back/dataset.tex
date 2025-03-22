@@ -1,0 +1,107 @@
+\clearpage
+\subsection{Dataset Description}
+\label{app:dataset}
+The dataset was collected over a \emph{10-year period (2014–2024)} 
+using Twelve Data API with a daily frequency (\emph{1-day interval}), providing a
+comprehensive historical view of stock price movements. The data includes key financial
+indicators that help analyze different aspects of the market:
+
+\begin{description}
+    \item[Pricing Data] Includes daily open, high, low, close, and volume (OHLCV) values,
+    which serve as the foundation for tracking stock performance.
+    \item[Trend Indicators] Measure the overall direction of the market, helping identify 
+    whether a stock is in an uptrend, downtrend, or moving sideways.
+    \item[Momentum Indicators] Evaluate the speed and strength of price movements, providing
+    insights into potential trend reversals and whether the stock is overbought or oversold.
+    \item[Volatility Indicators] Assess market risk and price fluctuations, helping traders 
+    identify potential breakouts and periods of stability.
+    \item[Volume Indicators] Analyze trading activity to confirm price trends, showing
+    whether investors are accumulating (buying) or distributing (selling) a stock.
+\end{description}
+
+A comprehensive description of the dataset is provided in Table~\ref{tab:dataset_structure}, detailing each column's category, description, and objective.
+
+\begin{longtable}{llp{5cm}p{5cm}}
+    \caption{Stock Market Dataset}\label{tab:dataset_structure} \\
+    \hline
+    \textbf{Column} & \textbf{Category} & \textbf{Description} & \textbf{Objective}  \\
+    \hline
+    \endfirsthead
+
+    \multicolumn{4}{c}{\textit{Continued from previous page}} \\
+    \hline
+    \textbf{Column Name} & \textbf{Category} & \textbf{Description} & \textbf{Objective} \\
+    \hline
+    \endhead
+
+    \hline \multicolumn{4}{r}{\textit{Continued on next page}} \\
+    \endfoot
+
+    \hline
+    \endlastfoot
+        datetime & Date 
+        & Timestamp for the stock data. 
+        & Serves as the index for time-series forecasting. \\
+        open & Price 
+        & The stock's opening price for the day. 
+        & Helps analyze price gaps and trend formations. \\
+        high & Price 
+        & The highest price reached during the day. 
+        & Indicates intraday volatility and resistance levels. \\
+        low & Price 
+        & The lowest price recorded during the day. 
+        & Shows intraday volatility and potential support levels. \\
+        close & Price 
+        & The stock's closing price for the day. & Primary feature for forecasting future prices. \\
+        volume & Activity 
+        & Total number of shares traded in a day. 
+        & Measures market activity and confirms price movements. \\
+        SMA & Trend 
+        & Simple Moving Average, smooths price fluctuations over a period. 
+        & Identifies long-term trends and reduces price noise. \\
+        EMA & Trend 
+        & Exponential Moving Average, giving more weight to recent prices. 
+        & Detects trend direction and reversals faster than SMA. \\
+        WMA & Trend 
+        & Weighted Moving Average, emphasizing recent data more. 
+        & Highlights recent price movements more effectively. \\
+        MACD & Trend 
+        & Difference between two EMAs to detect trend strength. 
+        & Identifies trend reversals and momentum shifts. \\
+        RSI 
+        & Momentum 
+        & Measures the speed and magnitude of price movements (0-100 scale). 
+        & Detects overbought (>70) and oversold (<30) conditions. \\
+        MOM & Momentum 
+        & Tracks the rate of price change over a set period. 
+        & Measures trend acceleration and potential reversals. \\
+        STOCH & Momentum
+        & Compares closing prices to price range over time. 
+        & Helps identify possible trend reversals. \\
+        CCI & Momentum 
+        & Measures price deviation from the historical average. 
+        & Detects overbought/oversold market conditions. \\
+        ADX & Trend 
+        & Measures the strength of a trend. 
+        & Confirms whether a trend is strong enough to trade. \\
+        ROC & Momentum 
+        & Calculates the percentage price change over a given period. 
+        & Measures trend strength and momentum shifts. \\
+        WILLR & Momentum
+        & Similar to RSI, identifies overbought/oversold levels. 
+        & Helps detect potential trend reversals. \\
+        BB & Volatility 
+        & Uses standard deviation bands around a moving average. 
+        & Identifies volatility levels and potential breakouts. \\
+        ATR & Volatility 
+        & Measures market volatility based on price range expansions. 
+        & Helps set stop-loss levels and detect risk conditions. \\
+        OBV & Volume 
+        & Cumulative volume flow based on price movements. 
+        & Confirms trends using volume-based signals. \\
+        MFI & Volume
+        & Combines price and volume to assess money flow. 
+        & Detects buying and selling pressure for trend confirmation. \\
+        \hline
+\end{longtable}
+

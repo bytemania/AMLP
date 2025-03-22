@@ -1,0 +1,116 @@
+\clearpage
+\subsection{Exploratory Data Analysis}
+\label{app:eda}
+
+For a stock market prediction dataset, conducting Exploratory Data Analysis (EDA) is crucial
+to understand trends, seasonality, correlations, stationarity, and feature relationships. 
+This process aids in preparing the data for deep learning models like \acrshort{lstm}
+or \acrshort{gru} networks. Such analyses help in capturing the temporal dependencies and
+patterns inherent in financial time-series data, thereby enhancing the predictive
+performance of these models. 
+
+
+\subsubsection{General Overview}
+The dataset consists of \textbf{2,763 records} spanning from \textbf{2014 to 2024} and 
+contains stock prices, volume, and various technical indicators.
+The \textbf{closing price (close)} ranges from \textbf{\$48.90} to \textbf{\$307.21}, with
+a mean of \textbf{\$159.24}.
+
+The \textbf{trading volume (volume)} varies significantly, with a mean
+of \textbf{1.97M shares} but reaching a maximum of \textbf{46.87M shares}, indicating 
+some high-activity trading days.
+
+\subsubsection{Stock Price Statistics}
+
+\begin{table}[H]
+    \centering
+    \caption{Stock Price Statistics}
+    \label{tab:stock_price_stats}
+    \begin{tabular}{lcccc}
+        \hline
+        & \textbf{Open (\$)} & \textbf{High (\$)} & \textbf{Low (\$)} & \textbf{Close (\$)} \\
+        \hline\hline
+        \textbf{Mean} & 159.17 & 161.52 & 156.83 & 159.24 \\
+        \textbf{Std Dev} & 67.89 & 68.72 & 67.07 & 67.88 \\
+        \textbf{Min} & 48.36 & 50.63 & 47.32 & 48.90 \\
+        \textbf{Max} & 309.10 & 311.28 & 306.60 & 307.21 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{Interpretation:}
+Stock prices \textbf{fluctuate widely}, with a standard deviation of \textbf{67.88}, indicating substantial volatility over time.
+The \textbf{minimum price was \$48.90}, while the \textbf{maximum price reached \$307.21}, showing significant price growth.
+
+\subsubsection{Moving Averages \& Trend Indicators}
+
+\begin{table}[H]
+    \centering
+    \caption{Moving Averages \& Trend Indicators}
+    \label{tab:moving_averages}
+    \begin{tabular}{lccc}
+        \hline
+        & \textbf{SMA (\$)} & \textbf{EMA (\$)} & \textbf{WMA (\$)} \\
+        \hline\hline
+        \textbf{Mean} & 158.97 & 158.97 & 159.06 \\
+        \textbf{Std Dev} & 67.64 & 67.57 & 67.69 \\
+        \textbf{Min} & 51.22 & 53.16 & 51.04 \\
+        \textbf{Max} & 303.04 & 303.22 & 304.20 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{Interpretation:}
+The \acrshort{sma}, \acrshort{ema}, \acrshort{wma} have very close values.
+Moving Averages are useful for detecting trends but do not capture short-term volatility.
+
+\subsubsection{Momentum \& Volatility Indicators}
+\begin{table}[H]
+    \centering
+    \caption{Momentum \& Volatility Indicators}
+    \label{tab:momentum_volatility}
+    \begin{tabular}{lcccccc}
+        \hline
+         & \textbf{MACD} & \textbf{RSI} & \textbf{ADX} & \textbf{MOM} & \textbf{ROC} & \textbf{BB} \\
+        \hline\hline
+        \textbf{Mean} & 0.47 & 51.95 & 23.03 & 0.60 & 0.63 & 170.36 \\
+        \textbf{Std Dev} & 4.08 & 11.85 & 8.98 & 11.64 & 7.07 & 72.06 \\
+        \textbf{Min} & -16.14 & 19.47 & 8.74 & -51.43 & -31.12 & 66.57 \\
+        \textbf{Max} & 13.82 & 84.81 & 54.47 & 58.64 & 35.24 & 322.45 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\paragraph{Interpretation:}
+\begin{itemize}
+    \item \acrshort{macd}: Mean close to zero, suggesting price trends fluctuate evenly
+    over time.
+    \item \acrshort{rsi}: Ranges from 19.47 to 84.81, with a mean of 51.95, indicating 
+    stock price frequently moves between \emph{overbought (>70)} and 
+    \emph{oversold (<30)} conditions.
+    \item \acrfull{adx}\footnote{ADX measures the strength of a trend but does not 
+    indicate its direction. A value above 25 suggests a strong trend, while 
+    below 25 indicates a weak or no trend.} Mean of 23.03, suggesting the market is often in
+    \emph{non-trending conditions} (values >25 indicate strong trends).
+    \item \acrshort{mom} NS \acrfull{roc}\footnote{ROC is a momentum indicator that measures the percentage change in stock price over a specific period. Positive values indicate price growth, while negative values suggest decline.}: Capture short-term movements; some 
+    extreme values indicate rapid price changes.
+\end{itemize}
+
+\subsubsection{Key Takeaways}
+
+\begin{itemize}
+    \item \textbf{Stock prices show high volatility}, which is important for predictive
+    models like \acrshort{lstm}. 
+    \\Available at: \href{https://www.businessinsider.com/stock-market-outlook-danger-zone-sp500-200-day-moving-average-2025-3}{Business Insider}.
+    \item \textbf{Trend indicators} are useful for detecting long-term movements. 
+    \\Available at: \href{https://www.marketwatch.com/story/some-market-signals-arent-working-like-they-used-to-heres-the-one-to-watch-23a4e43a}{MarketWatch}.
+    \item \textbf{Momentum indicators} highlight price strength \& reversals. 
+    \\Available at: \href{https://en.wikipedia.org/wiki/Stochastic_oscillator}{Wikipedia - Stochastic Oscillator}.
+    \item \textbf{Volatility indicators} help assess market risk. 
+    Available at: \href{https://en.wikipedia.org/wiki/Chaikin_Analytics}{Wikipedia - Chaikin Volatility Indicator}.
+\end{itemize}
+
+
+
+
+

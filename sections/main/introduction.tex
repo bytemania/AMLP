@@ -1,0 +1,116 @@
+\clearpage
+\pagenumbering{arabic}
+\pagestyle{plain}
+
+\section{Introduction}
+
+Stock market prediction has long been a focal point for investors, economists, and
+data scientists due to the potential for high financial returns. Traditional
+approaches, such as fundamental and technical analysis, have provided insights into
+stock price movements. However, the complex and volatile nature of financial markets
+requires more sophisticated models capable of capturing intricate patterns in 
+time-series data.
+
+With advancements in deep learning, \acrfull{lstm} networks have emerged as a 
+powerful tool for time-series forecasting. \acrshort{lstm} networks are a variant 
+of \acrfullpl{rnn} designed to retain long-term dependencies, making them highly
+suitable for stock price prediction. By incorporating technical indicators such as
+\acrfull{macd}, \acrfull{rsi}, \acrfull{bb}, and \acrfull{sma}, \acrshort{lstm}
+can improve forecasting accuracy by leveraging historical price trends and market
+momentum.
+
+While standalone \acrshort{lstm} models have proven effective in predicting stock
+prices, recent studies suggest that hybrid models, such as \acrshort{lstm} combined
+with \acrfull{gru}, can further enhance predictive performance. \acrshortpl{gru}, like
+\acrshortpl{lstm}, are designed to capture sequential dependencies but utilize a more
+simplified gating mechanism, reducing computational complexity while maintaining
+accuracy. By integrating \acrshort{lstm} and \acrshort{gru} architectures, researchers
+have demonstrated improvements in both training efficiency and forecasting precision,
+making them an attractive option for financial time-series modeling.
+
+This research explores the application of \acrshort{lstm}--based models, both
+standalone and in combination with \acrshort{gru} for stock market prediction.
+Additionally, it investigates the impact of integrating key technical indicators in
+enhancing model accuracy. The goal is to determine the effectiveness of these models
+in forecasting stock price movements and identifying optimal configurations for 
+market prediction.
+
+\subsection{Project description}
+
+This project focuses on predicting the stock trends of 
+\href{https://www.nasdaq.com/market-activity/stocks/wday}{Workday Inc. (WDAY)} using deep learning techniques. 
+Given the increasing volatility of financial markets, accurate stock price forecasting is essential for
+investors, analysts, and financial institutions. Traditional forecasting methods, such as fundamental and
+technical analysis, have been widely used, but they often fail to capture the complex, nonlinear patterns 
+present in stock price movements.
+
+The aim is to develop and compare advanced deep learning models, specifically \acrfull{lstm} 
+and \acrfull{bigru}, for predicting WDAY stock prices. By leveraging these models, we aim to extract meaningful
+trends, reduce prediction errors, and enhance financial decision-making. The research will assess the feasibility
+of integrating deep learning-based predictions into real-time financial applications, such as trading algorithms
+or stock monitoring dashboards.
+
+\subsection{Project scope}
+
+This research investigates the use of deep learning models, specifically \acrshort{lstm} and hybrid 
+\acrfull{lstmgru} approaches, for WDAY stock market prediction by leveraging a variety of technical
+indicators. The study will focus on assessing the predictive capabilities of these models across different market
+conditions and will explore the influence of various technical indicators on forecasting accuracy.
+
+Building upon existing literature, this study will not only evaluate the standard set of indicators such as 
+\acrfull{macd}, \acrfull{rsi}, and \acrfull{bb}. Aditionally other indicators may be used such as: 
+\acrfull{ema}, \acrfull{wma}, \acrfull{mom}, \acrfull{obv}, and \acrfull{atr}. By testing a broader set of
+indicators, this research seeks to identify which features contribute the most to improving model 
+performance~\parencite{parmar2018stock, nabipour2020DeepLearning}.
+
+The project will involve an extensive experimental setup where WDAY stock price data and technical indicators 
+are collected, preprocessed, and fed into various deep learning models. Performance will be assessed using 
+established metrics such as \acrfull{rmse}, \acrfull{mae}, and \acrfull{r2}. The study will also compare the 
+stability and generalizability of the models under different market conditions, including periods of high
+volatility and economic downturns~\parencite{chang2024StockPrediction, phuoc2024StockPrediction}.
+
+Furthermore, the study will explore the potential benefits of combining multiple technical indicators to form a 
+composite feature set, evaluating whether certain indicator combinations yield superior predictive performance. 
+This approach will help in identifying optimal configurations for WDAY stock price forecasting and provide 
+insights into best practices for leveraging deep learning in financial 
+analysis~\parencite{balasubramanian2023SystematicSurvey, shaban2024SMPDL}.
+
+By expanding the range of indicators and rigorously testing different model architectures, this research will 
+contribute to the development of more robust and reliable stock prediction models. The findings will be 
+valuable for investors, financial analysts, and AI researchers seeking to integrate deep learning techniques 
+with technical analysis for better decision-making in the WDAY stock
+market~\parencite{guo2024LSTMStock, agrawal2022StockPrediction}.
+
+\subsection{Report layout}
+
+This report is structured to provide a clear and systematic analysis of stock 
+market prediction using machine learning and deep learning techniques. Each 
+section builds upon the previous one to ensure a logical progression of ideas 
+and findings:
+
+\begin{description}
+\item [Section 2 - Literature Review] This section examines existing research 
+on stock market prediction, highlighting traditional and modern machine 
+learning approaches. It discusses key findings from previous studies and 
+identifies gaps that this research aims to address.
+\item [Section 3 - Methodology] This section details the research design, 
+including data collection methods, feature engineering, model selection, and 
+evaluation criteria. It describes the techniques used for stock price
+forecasting and sentiment analysis.
+\item[Section 4 - Implementation] This section outlines the practical 
+implementation of the predictive models, detailing the tools, 
+technologies, and configurations used. It provides insight into how the
+models were trained and optimized.
+\item[Section 5 - Results] The experimental results are presented and analyzed 
+in this section. It compares the performance of different models using metrics 
+such as \acrshort{rmse} and \acrshort{mae}, and evaluates the impact of 
+sentiment analysis on prediction accuracy.
+\item[Section 6 - Conclusion] This section synthesizes the findings of the 
+study, discusses the implications of the results, and outlines potential 
+directions for future research.
+\item[Appendix] Additional details, including extended datasets, supplementary 
+figures, and code references, are provided in the appendix for completeness.
+\end{description}
+
+
+
