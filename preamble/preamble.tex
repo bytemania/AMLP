@@ -2,6 +2,17 @@
 \usepackage[utf8]{inputenc} 
 \usepackage[T1]{fontenc}
 
+\usepackage{pdflscape}
+
+\def\fillandplacepagenumber{%
+ \par\pagestyle{empty}%
+ \vbox to 0pt{\vss}\vfill
+ \vbox to 0pt{\baselineskip0pt
+   \hbox to\linewidth{\hss}%
+   \baselineskip\footskip
+   \hbox to\linewidth{%
+     \hfil\thepage\hfil}\vss}}
+
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,
@@ -44,6 +55,7 @@
 \usepackage{longtable}
 \usepackage{array}
 \usepackage{booktabs}
+\usepackage{tablefootnote}
 
 \usepackage{listings}
 \usepackage{minted}
