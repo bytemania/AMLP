@@ -1,8 +1,47 @@
 \clearpage
 \section{Conclusion}
 
-6 Conclusion
-[Structure as you wish but make sure that a it includes a synthesis of the results, a high-level
-discussion of their implications, any particularly interesting low-level details of the results and,
-finally, some words on ‘next steps’ i.e. how you might build on the project if you had the interest and
-the time.
+This project set out to explore the application of deep learning techniques for
+stock price forecasting, specifically focusing on \acrfull{wday}. Two recurrent 
+neural network architectures—\acrshort{lstm} and a hybrid \acrshort{lstmbigru}
+were implemented and evaluated based on a comprehensive 10-year dataset of daily
+stock prices and technical indicators.
+
+The results consistently showed that both models could learn meaningful temporal
+dependencies and generate accurate next-day price predictions. Notably, the 
+\acrshort{lstmbigru} model exhibited superior performance, achieving lower values 
+across all error metrics compared to the standard \acrshort{lstm}. This validates 
+existing research suggesting that hybrid recurrent architectures are better suited to 
+capturing complex, non-linear patterns in financial time series.
+
+One particularly interesting outcome was the effectiveness of using minimal dropout 
+(as low as 0.01), which, despite going against common practice, was justified by the
+limited size of the training data. It also highlights how well-optimized 
+architectures and regularization strategies such as early stopping can still 
+produce robust results without excessive penalization.
+
+Another important design choice was the use of a 30-day input sequence, meaning each
+prediction was based on the previous 30 trading days. This window size provided a 
+practical balance between capturing recent trends and maintaining a manageable input
+dimensionality. Combined with a 1-day prediction interval and a 10-year historical 
+range, this approach enabled the models to learn both short-term momentum and 
+long-term seasonality patterns. These parameters align with recommendations in the 
+literature, which suggest that 30-60-day windows are often effective in financial 
+time-series modeling.
+
+From a high-level perspective, the findings reinforce the suitability of deep
+learning, and especially recurrent architectures, in modeling sequential market data. 
+They also demonstrate that with appropriate tuning, even relatively simple networks 
+can perform competitively in financial forecasting.
+
+For future work, several directions are worth pursuing. Incorporating sentiment 
+analysis from news or social media sources (e.g., via \acrshort{bert}-based models) 
+could enrich the feature space. Exploring higher-frequency data, such as hourly 
+prices, would enable more granular predictions—although data availability remains a 
+practical limitation. Additionally, experimenting with attention mechanisms or 
+transformer-based models could further enhance performance, particularly in volatile 
+market conditions.
+
+Overall, this project offers a strong foundation for stock prediction using deep 
+learning and opens up promising avenues for continued exploration in financial
+machine learning.

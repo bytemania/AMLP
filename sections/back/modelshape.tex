@@ -1,0 +1,61 @@
+\clearpage
+\subsection{Best Model Selection Shape}
+\label{app:modelshape}
+
+\subsubsection{LSTM Architecture}
+
+\begin{table}[H]
+\centering
+\caption{Selected LSTM Model Summary}
+\label{tab:lstm-model-summary}
+\begin{tabular}{lcr}
+\hline
+\textbf{Layer (type)} & \textbf{Output Shape} & \textbf{Param \#} \\
+\hline\hline
+LSTM & (None, 30, 128) & 75,776 \\
+Dropout & (None, 30, 128) & 0 \\
+LSTM & (None, 32) & 20,608 \\
+Dropout & (None, 32) & 0 \\
+Dense & (None, 32) & 1,056 \\
+Dense & (None, 1) & 33 \\
+\hline
+\end{tabular}
+
+\vspace{1em}
+\noindent
+\textbf{Total Parameters:} 292,421\\
+\textbf{Trainable Parameters:} 97,473\\
+\textbf{Non-Trainable Parameters:} 0\\
+\textbf{Optimizer Parameters:} 194,948
+\end{table}
+
+\subsubsection{LSTM-BiGRU Architecture}
+
+\begin{table}[H]
+\centering
+\caption{LSTM-BiGRU Model Summary}
+\label{tab:lstmbigru-model-summary}
+\begin{tabular}{lcr}
+\hline
+\textbf{Layer (type)} & \textbf{Output Shape} & \textbf{Param \#} \\
+\hline\hline
+Bidirectional-GRU & (None, 30, 128) & 32,640 \\
+Dropout             & (None, 30, 128) & 0 \\
+LSTM                   & (None, 30, 64)  & 49,408 \\
+Dropout          & (None, 30, 64)  & 0 \\
+LSTM      & (None, 30, 32)  & 12,416 \\
+Dropout        & (None, 30, 32)  & 0 \\
+LSTM          & (None, 16)      & 3,136 \\
+Dropout            & (None, 16)      & 0 \\
+Dense       & (None, 16)      & 272 \\
+Dense      & (None, 1)       & 17 \\
+\hline
+\end{tabular}
+
+\vspace{1em}
+\noindent
+\textbf{Total Parameters:} 293,669 \\
+\textbf{Trainable Parameters:} 97,889 \\
+\textbf{Non-Trainable Parameters:} 0 \\
+\textbf{Optimizer Parameters:} 195,780 
+\end{table}

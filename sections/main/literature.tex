@@ -145,3 +145,28 @@ Table~\ref{tab:keycontrib} summarizes key contributions from studies on stock ma
      \hline
 \end{tabular}
 \end{table}
+
+\subsection{Less relevant papers}
+
+The use of volume-based indicators has gained increasing attention in recent research 
+on technical analysis and stock prediction. \parencite{tsang2009OBV} provide one of the
+few empirical investigations into the profitability of the \acrfull{obv} trading rule.
+Their results demonstrate that OBV-based strategies can outperform the traditional
+buy-and-hold approach in several Asian markets, especially in Greater China, 
+highlighting OBV's potential in capturing investor sentiment through volume dynamics.
+
+Similarly,\parencite{marek2020mfi} examine the \acrfull{mfi} and show that, when 
+optimized, MFI-based trading strategies can consistently outperform the standard 
+buy-and-hold approach across a range of major S\&P 500 stocks. Their findings 
+reinforce the idea that volume-informed oscillators like MFI can significantly
+improve the predictive capability of stock models, especially when the parameters 
+are tailored to specific equities.
+
+In addition to model architecture and feature engineering, effective hyperparameter tuning plays a critical role in 
+enhancing deep learning performance. Traditional grid search methods often suffer from inefficiency, especially when 
+dealing with high-dimensional spaces where some parameters have significantly greater impact than others. Bergstra and 
+Bengio~\parencite{bergstra2012random} proposed \emph{random search} as a more efficient alternative, showing that randomly 
+sampling configurations often yields better results in fewer trials. Their findings are particularly relevant for deep 
+neural networks, where hyperparameters such as learning rate, batch size, and dropout have non-uniform effects on model 
+performance. In this project, random search is adopted as the primary strategy for tuning \acrshort{lstm} and 
+\acrshort{lstmgru} models, as it balances search space coverage with computational efficiency.

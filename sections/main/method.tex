@@ -93,19 +93,39 @@ A detailed overview of the dataset is available in Appendix~\ref{app:dataset}.
 
 \subsubsection{Timeframe and frequency}
 
-Using a 10‐year window with daily sampling for \acrshort{wday} stocks would yield roughly 
-252 datapoints per year (approximately 2,500 total), which might be too sparse for a complex model 
-and could lead to underfitting\footnote{Underfitting occurs when the model is too simple relative to the complexity of the data, failing to capture the underlying market dynamics.}. Since our study focuses
-exclusively on \acrshort{wday} stocks, we can increase the data density by sampling \emph{every hour 
-during trading hours}. This strategy boosts the number of data points by a factor of 6–8 per trading
-day, allowing us to capture more nuanced intraday trends and volatility.
+The objective of this study is to \emph{predict the next day’s closing
+price of \acrfull{wday} stock}. Based on the comparative analysis in 
+Table~\ref{tab:data-window}, a 10-year historical window (2014 to 2025, current date) with a daily 
+interval is selected. 
 
-For a comprehensive comparison of different timeframes and frequencies, please refer to 
-Appendix~\ref{app:timeframes}, which summarizes these trade-offs based on previous studies.
-
-In summary, \acrshort{wday} stock pricing data will be collected from \emph{2014 to 2024} with hourly 
-sampling during trading hours. Although the majority of studies recommend daily frequency, our 
-approach mitigates the risk of underfitting by significantly increasing the dataset size.
+\begin{landscape}
+\begin{table}[H]
+\centering
+\caption{Recommended historical data span for different time intervals in stock price prediction using LSTM-based models.}
+\label{tab:data-window}
+\begin{tabular}{p{3cm}llp{3cm}p{6cm}p{6cm}} \hline
+     \textbf{Study} & \textbf{Window} & \textbf{Interval} & \textbf{Use Case} & \textbf{Pros}  & \textbf{Cons} \\ \hline\hline
+     \parencite{shaban2024SMPDL} & Every Minute & 2 Years & 
+     \acrfull{hft} &
+     High temporal precision, intraday volatility modeling, real-time insights. &
+     Extremely noisy, heavy computation, large storage.
+     \\
+     \parencite{guo2024LSTMStock} & Every Minute & 125 days & 
+     \acrfull{hft} &
+      Small bursts of data for micro-movement learning. &
+      Insufficient for long-range patterns; limited context.
+      \\
+      \parencite{chang2024StockPrediction}, 
+      \parencite{nabipour2020DeepLearning} & Daily & 10 Years & 
+      Daily Close Price and Medium-Term Forecasting &
+      Captures full economic cycles. &
+      Not usable for intraday strategies.
+     \\
+     \hline
+\end{tabular}
+\end{table}
+\fillandplacepagenumber
+\end{landscape}
 
 \subsubsection{Feature transformation}
 
@@ -126,30 +146,6 @@ By setting the date as an index, the dataset benefits in multiple ways:
     intervals, such as hourly, daily, or weekly periods, which can be beneficial for various prediction 
     models~\parencite{agrawal2022StockPrediction}.
 \end{description} 
-
-\subsubsection{Feature Selection Based}
-
-Feature selection is a critical preprocessing step in stock market prediction models. Highly 
-correlated features introduce redundancy, increase model complexity, and may lead to 
-multicollinearity, negatively impacting predictive 
-performance~\parencite{balasubramanian2023SystematicSurvey, guo2024LSTMStock}. By analyzing the
-correlation matrix, we identify and remove features that exhibit excessive 
-correlation, ensuring a more robust and interpretable model.
-
-\paragraph{Correlation Matrix and Redundancy Removal}
-The correlation matrix provides a quantitative measure of the relationships between different
-technical indicators. If two features have a correlation coefficient \(\rho > 0.9\), they
-contain almost identical information~\parencite{nabipour2020DeepLearning}. In such cases, one of
-the two features can be removed to prevent redundancy.
-
-\paragraph{Criteria for Feature Selection}
-To systematically reduce feature redundancy, we follow these steps:
-\begin{enumerate}
-    \item Compute the correlation matrix for all numerical features in the dataset.
-    \item Identify feature pairs with a correlation coefficient \(\rho > 0.9\).
-    \item Retain one feature from each highly correlated pair based on domain relevance or predictive importance.
-    \item Remove the redundant feature to improve model efficiency and prevent overfitting.
-\end{enumerate}
 
 \subsubsection{Dataset split}
 
@@ -203,40 +199,26 @@ This strict time-based split ensures that future data is not used to train or ad
 
 \subsubsection{Feature Scaling}
 
-Feature scaling is an essential preprocessing step in deep learning models, particularly for
-time-series forecasting in stock market prediction. Models such as \acrshort{lstm}, 
-\acrshort{lstmgru}, and \acrshort{lstmbigru} require properly scaled inputs to ensure stable
-training, faster convergence, and improved predictive accuracy. The choice of a scaling
-method significantly impacts model performance, as improper scaling can lead to gradient
-instability, slow learning, or biased weight updates~\parencite{chang2024StockPrediction}.
-
-For \acrshortpl{rnn} like \acrshort{lstm} and its variants, the distribution 
-and \emph{range of input features must align with activation functions such as sigmoid and tanh}. Based on the literature, 
-\emph{Min-Max Scaling, Z-Score Standardization, and Robust Scaling} are the most
-commonly used methods, each serving a different purpose depending on the model 
-architecture~\parencite{balasubramanian2023SystematicSurvey}.
-
-Table~\ref{tab:scaling_methods} presents a comparison of the most effective feature scaling techniques for LSTM-based models, highlighting their suitability and theoretical advantages.
+Drawing from the studies summarized in Table~\ref{tab:feature-scaling}, this research evaluates both 
+\emph{Min-Max normalization} and \emph{Z-score standardization} as feature scaling techniques for improving 
+model performance in next-day stock price forecasting. While both methods are implemented for comparison, the 
+primary scaling technique adopted in this study is Min-Max normalization, applied using the \texttt{MinMaxScaler} 
+from the \texttt{scikit-learn} library. This choice is guided by evidence in the literature suggesting that 
+Min-Max scaling is better suited for deep learning models—particularly \acrshort{lstm} and \acrshort{lstmgru}—
+due to its ability to preserve the shape of the original data while constraining it within a range that accelerates 
+convergence and improves training stability.
 
 \begin{table}[H]
-    \centering
-    \caption{Comparison of Feature Scaling Methods for LSTM-Based Models}
-    \label{tab:scaling_methods}
-    \begin{tabular}{ccp{7.5cm}}
-        \hline
-        \textbf{Scaling Method} & \textbf{Best for} & \textbf{Justification} \\
-        \hline\hline
-        Min-Max Scaling & \acrshort{lstm} & Preserves the relative magnitude of stock price 
-        movements and ensures numerical stability during training. Ideal for 
-        sequential models with long-term 
-        dependencies~\parencite{chang2024StockPrediction}. \\
-        Z-Score Standardization & \acrshort{lstmgru} & Normalizes features to have zero mean
-        and unit variance, stabilizing training and improving hybrid model 
-        convergence~\parencite{balasubramanian2023SystematicSurvey}. \\
-        Robust Scaling & \acrshort{lstmbigru} & Handles outliers effectively, preventing 
-        distortions in bidirectional recurrent networks that analyze both past and 
-        future dependencies~\parencite{shaban2024SMPDL}. \\ \hline
-    \end{tabular}
+\centering
+\caption{Feature scaling methods used in LSTM-based stock prediction studies.}
+\label{tab:feature-scaling}
+\begin{tabular}{p{3.5cm}p{3.2cm}p{6.8cm}} \hline
+\textbf{Study} & \textbf{Scaling Method} & \textbf{Purpose / Notes} \\ \hline\hline
+\parencite{shaban2024SMPDL} & Min-Max Normalization & Normalization was used to reduce variance and improve model performance in minute-level LSTM-BiGRU forecasting. \\
+\parencite{nabipour2020DeepLearning} & Z-score Standardization & Feature scaling was part of the preprocessing pipeline to manage multiple indicators across different ranges.  \\
+\parencite{phuoc2024StockPrediction} & Min-Max Normalization & Min-max scaling was applied across features to train multiple deep models on structured market data.  \\
+\hline
+\end{tabular}
 \end{table}
 
 \subsection{Model Selection}
@@ -251,7 +233,7 @@ Recent research suggests that hybrid models combining \acrshort{lstm} with
 \acrshort{gru} or \acrshort{bigru} provide superior performance compared to standalone
 architectures. \acrshort{lstmgru} balances efficiency and predictive accuracy, while 
 \acrshort{lstmbigru} achieves the highest accuracy by capturing both past and future
-dependencies~\parencite{chang2024StockPrediction}. Table xx summarizes the key advantages and trade-offs of these models, based on findings from deep learning applied to financial forecasting.
+dependencies~\parencite{chang2024StockPrediction}. Table~\ref{tab:stock_models} summarizes the key advantages and trade-offs of these models, based on findings from deep learning applied to financial forecasting.
 
 \begin{table}[H]
     \centering
@@ -287,16 +269,51 @@ dependencies~\parencite{chang2024StockPrediction}. Table xx summarizes the key a
 \end{table}
 
 For \acrshort{wday} stock prediction, the approach will involve implementing and evaluating 
-three deep learning models: \acrshort{lstm}, \acrshort{lstmgru}, and \acrshort{lstmbigru}.
+two deep learning models: \acrshort{lstm}, and \acrshort{lstmbigru}.
 These models are selected due to their ability to capture long-term dependencies, 
 short-term trends, and bidirectional patterns in stock market data.
 
-To ensure optimal performance, the process will include:
-\begin{itemize}
-    \item Properly scaling the input features using an appropriate scaling technique.
-    \item Searching for the best hyperparameters to optimize learning rate, batch size, number of layers, and hidden units.
-    \item Evaluating model performance.
-\end{itemize}
+\subsection{Hyperparameter tuning for the model }
+
+Table~\ref{tab:hyperparamsconf} summarizes the hyperparameter configurations 
+reported in recent \acrshort{lstm}-based stock prediction studies. Common values include a 
+sequence length of 60, dropout rates around 0.2, and hidden unit sizes ranging from 50 to 
+128. Based on this, key parameters such as sequence length, number of hidden units, dropout
+rate, and learning rate will be explored and tuned in this study to identify the 
+best-performing configuration for next-day price prediction.
+
+\begin{table}[H]
+\centering
+\caption{Hyperparameter Recommendations for LSTM Models}
+\label{tab:hyperparamsconf}
+\begin{tabular}{ccp{6.5cm}}
+\hline
+\textbf{Hyperparameter} & \textbf{Recommended Range} & \textbf{Description} \\ \hline\hline
+Learning Rate & 0.001 - 0.0001 & Controls step size during optimization~\parencite{parmar2018stock}. 
+Smaller learning rates ensure smoother convergence but increase training time.\\
+Hidden Layer Units & 16-128 & More units increase model complexity and potentially accuracy but risk overfitting \\
+Batch Size & 32-128 & Affects training stability and convergence \\
+Sequence Length & 30-90 & Longer sequences capture more historical context but require more resources. \\
+Optimizer & Adam, RMSprop & Commonly used for recurrent networks \\
+Dropout Rate & 0.2 - 0.5 & Prevents overfitting~\parencite{agrawal2022StockPrediction} \\
+Number of Epochs & 50 - 200 & Determines training iterations \\
+Activation Function & Tanh, ReLU & Tanh preferred for LSTMs \\
+Early Stopping & Patience = 1 & Prevents unnecessary computation by halting when validation loss 
+stops improving~\parencite{chang2024StockPrediction} \\
+\hline
+\end{tabular}
+\end{table}
+
+To effectively identify the optimal set of hyperparameters for both \acrshort{lstm} and hybrid \acrshort{lstmgru} models, 
+this study employs \emph{Random Search} as the primary tuning method. Rather than exhaustively testing every possible 
+combination (as in Grid Search), Random Search samples a wide range of parameter values randomly across the defined search 
+space. This approach has been shown to be more computationally efficient while still providing high-quality solutions,
+especially when dealing with high-dimensional hyperparameter spaces~\parencite{bergstra2012random}.
+
+The search is conducted over the hyperparameter ranges listed in Table~\ref{tab:hyperparamsconf}, including learning rate, 
+batch size, dropout rate, number of epochs, and optimizer. The goal is to find the configuration that minimizes 
+validation loss and generalizes well across different market conditions. This tuning process plays a key role in 
+ensuring model stability, improving convergence, and enhancing next-day prediction accuracy.
 
 \subsection{Performance and evaluation}
 
@@ -304,8 +321,6 @@ The selection of evaluation metrics is based on established research in stock ma
 forecasting~\parencite{agrawal2022StockPrediction, nabipour2020DeepLearning, guo2024LSTMStock}:
 
 \begin{description}
-\item[\acrfull{rmse}] Measures the standard deviation of residuals between predicted and 
-                      actual values. Lower values indicate better predictive performance.
 \item[\acrfull{mae}] Represents the average absolute difference between predicted and 
                      actual stock prices.
 \item[\acrfull{mse}] Highlights prediction errors with a quadratic penalty, making it 
@@ -314,6 +329,9 @@ forecasting~\parencite{agrawal2022StockPrediction, nabipour2020DeepLearning, guo
                     closer to 1 denoting better performance.
 \end{description}
 
-
-
-
+To ensure optimal performance, the process will include:
+\begin{itemize}
+    \item Properly scaling the input features using an appropriate scaling technique.
+    \item Searching for the best hyperparameters to optimize learning rate, batch size, number of layers, and hidden units.
+    \item Evaluating model performance.
+\end{itemize}

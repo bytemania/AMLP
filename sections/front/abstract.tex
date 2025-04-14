@@ -3,15 +3,32 @@
 
 \section*{Abstract}
 
-The prediction of stock market trends has long been a challenging yet critical task in 
-financial analysis. Traditional statistical models often struggle to capture the nonlinear 
-and volatile nature of financial markets, leading to the increasing adoption of deep learning 
-techniques. This study explores the integration of machine learning models, specifically 
-\acrfull{rnn}, \acrfull{lstm}, and \acrfull{gru}, for stock price prediction.
+Stock price prediction is a longstanding challenge in quantitative finance due 
+to the complex, noisy, and highly dynamic nature of financial markets. This project
+investigates the application of deep learning techniques—specifically Long Short-Term
+Memory (LSTM) and a hybrid LSTM-Bidirectional GRU (BiGRU) model—for forecasting the 
+next-day closing price of Workday Inc. (WDAY) stock. A 10-year dataset of daily stock
+prices and technical indicators was compiled and preprocessed to create input 
+sequences that capture temporal dependencies over a 30-day window.
 
-Experimental results will offer insights into the potential benefits and limitations of 
-sentiment-enhanced financial prediction. This research contributes to the field of financial 
-forecasting by evaluating the effectiveness of integrating deep learning with social media 
-sentiment analysis and critically analyzing its impact on predictive performance.
+Two neural network architectures were implemented: a stacked LSTM and a 
+deeper LSTM-BiGRU hybrid model. Hyperparameter tuning was performed using Keras 
+Tuner's random search, optimizing key model parameters such as layer sizes, dropout
+rates, learning rates, and sequence lengths. Evaluation was conducted using standard 
+regression metrics Root Mean Squared Error (RMSE), Mean Absolute Error (MAE), Mean 
+Absolute Percentage Error (MAPE), and the Coefficient of Determination ($R^2$) to 
+assess predictive accuracy on unseen test data.
 
+The results show that while both models performed well, the LSTM-BiGRU model 
+significantly outperformed the standard LSTM in all evaluation metrics, achieving an 
+$R^2$ above 0.99. This supports the hypothesis that deeper, hybrid recurrent 
+architectures better capture the non-linear patterns and long-term dependencies 
+inherent in financial time series. The findings also suggest that minimal dropout 
+regularization, combined with early stopping, is effective in preventing overfitting
+in small but well-structured datasets.
 
+Overall, the study demonstrates the potential of deep learning models for stock price
+forecasting and provides a strong foundation for future work incorporating sentiment
+analysis, higher-frequency data, or transformer-based architectures for more robust 
+and context-aware predictions. 
+   
