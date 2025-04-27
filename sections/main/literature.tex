@@ -12,7 +12,11 @@ Early methods of stock market prediction relied heavily on statistical models su
 \acrfull{arima} and \acrfull{garch}. These models were useful for linear trend
 analysis but struggled with capturing the non-linear and highly volatile nature of
 financial time-series data~\parencite{guo2024LSTMStock}. Similarly, fundamental and
-technical analyses have been widely used by traders, relying on financial ratios, 
+technical analyses\footnote{Fundamental analysis involves assessing a company's 
+financial health, business model, earnings, and economic conditions to estimate its 
+intrinsic value. Technical analysis uses historical price data, volume, and chart 
+patterns to identify trends and make trading decisions.} have been widely used by 
+traders, relying on financial ratios, 
 market trends, and macroeconomic 
 factors~\parencite{balasubramanian2023SystematicSurvey}. However, with the increasing
 complexity of financial markets, these traditional models have become less effective
@@ -28,12 +32,14 @@ traditional methods by learning complex patterns in stock price data. However, t
 fail to capture long-term dependencies in time-series data, making them less effective in 
 sequential forecasting tasks.
 
-\citetitle{parmar2018stock}~\parencite{parmar2018stock} explored machine learning 
-techniques for stock market 
-prediction, highlighting the effectiveness of ensemble learning methods in combining 
-multiple models for improved accuracy. While these methods enhance prediction performance,
-they still rely on feature engineering and lack the ability to extract deep temporal 
-patterns from stock price movements.
+\citetitle{parmar2018stock}~\parencite{parmar2018stock} examined various machine 
+learning techniques for stock market prediction, emphasizing the effectiveness of 
+ensemble learning approaches in improving accuracy by combining multiple models. 
+However, their methodology relied heavily on manual feature engineering, incorporating 
+sentiment scores from Twitter and web news, search query volumes from Google Trends, 
+and historical stock price data. While effective, such manually selected features 
+limit the model's capacity to learn deep temporal dependencies inherent in sequential 
+stock price movements.
 
 \subsection{Deep Learning for Stock Market Prediction}
 
@@ -50,9 +56,9 @@ problem.} problem in \acrshortpl{rnn}, making them ideal for modeling long-term
 dependencies in stock price trends.
 
 A comparative study by 
-\citeauthor{nabipour2020DeepLearning}~\parencite{nabipour2020DeepLearning} showed 
+\citeauthor{nabipour2020DeepLearning}~\parencite{nabipour2020DeepLearning} \emph{showed 
 that \acrshortpl{lstm} outperformed traditional \acrfull{ml} models such as \acrfullpl{dt}, and 
-\acrshortpl{rf} in predicting stock price movements. 
+\acrshortpl{rf} in predicting stock price movements}. 
 
 \subsection{Hybrid Deep Learning Models: LSTM-GRU and Advanced Techniques}
 
@@ -62,44 +68,38 @@ networks and \acrfullpl{bigru}. \acrshortpl{lstm} excel at capturing long-term d
 data, while \acrshortpl{bigru} process information in both forward and backward directions, enhancing
 context awareness. This combination is particularly useful in time-series forecasting, improving
 predictive accuracy and robustness in stock market prediction.} for improved predictive performance.
-\acrshortpl{gru} simplify the \acrshort{lstm} structure while maintaining its memory retention
-capabilities, leading to faster training times and better generalization~\parencite{guo2024LSTMStock}.
-Other studies have investigated alternative combinations of deep learning and traditional models,
-integrating techniques like \acrfull{xgboost} to enhance forecasting
-accuracy~\parencite{agrawal2022StockPrediction}. Furthermore, the use of 
-Facebook Prophet\footnote{Facebook Prophet is an open-source time-series forecasting tool developed by
-Meta. It is designed to handle trends, seasonality, and holiday effects using an additive model. 
-Prophet is particularly effective for stock market prediction as it can manage missing data, outliers,
-and irregular time-series intervals, making it robust for financial forecasting and trend analysis.} and 
-statistical techniques like \acrfull{arima}\footnote{\acrshort{arima} is a time-series forecasting model
-that combines AutoRegression, Integration to remove trends, and Moving Average to smooth fluctuations.
-It is commonly used for financial forecasting but struggles with highly volatile or non-linear
-patterns.} in conjunction with deep learning models has been explored to balance short-term and 
-long-term prediction needs~\parencite{phuoc2024StockPrediction}.
+\acrshortpl{gru} simplifies the \acrshort{lstm} structure while maintaining its memory retention
+capabilities, leading to 
+\emph{faster training times and better generalization}~\parencite{shaban2024SMPDL, chang2024StockPrediction}.
 
 \subsection{Incorporating Technical Indicators in Stock Prediction Models}
 
-Technical indicators play a crucial role in stock price forecasting by capturing momentum, volatility, 
-and trend reversals. Several studies have incorporated technical indicators such as 
-\acrshort{macd}, \acrshort{rsi}, \acrshort{bb}, and \acrshort{sma} into \acrshort{lstm}-based 
-prediction models~\parencite{guo2024LSTMStock}.
+Technical indicators are widely used in stock price forecasting as they help capture 
+market dynamics such as momentum shifts, volatility patterns, and trend
+reversals. When integrated with deep learning models, 
+especially \acrshort{lstm}-based architectures, these indicators enrich the input data 
+with domain-specific
+signals that enhance temporal pattern recognition and overall forecasting accuracy.
 
-\citetitle{phuoc2024StockPrediction}~\parencite{phuoc2024StockPrediction} applied \acrshort{macd}, 
-\acrshort{rsi}, and \acrshort{sma} in an \acrshort{lstm} model and achieved a 93\% accuracy rate in
-forecasting stock trends in the Vietnamese market.   
+\parencite{guo2024LSTMStock} demonstrated that combining technical indicators like the \acrfull{macd},
+\acrfull{rsi}, \acrfull{bb}, and \acrfull{sma} with historical price data significantly improves prediction 
+performance in LSTM models. These indicators provide a condensed form of past market behavior that 
+complements the LSTM’s ability to learn long-term dependencies, leading to improved generalization and 
+reduced error in volatile market conditions.
 
-\citetitle{chang2024StockPrediction}~\parencite{chang2024StockPrediction} extended this approach by 
-incorporating ensemble techniques, combining deep learning with statistical models like 
-\acrshort{arima} and Facebook Prophet. This hybrid methodology improved prediction stability across
-different market conditions, demonstrating the importance of integrating multiple forecasting 
-techniques.
+Similarly, \textcite{phuoc2024StockPrediction} applied \acrshort{macd}, \acrshort{rsi}, and \acrshort{sma} 
+in an \acrshort{lstm}-based forecasting framework for VN30-listed stocks in the Vietnamese market. The 
+study reported an average forecasting accuracy of 93\% across most stocks in the test set, confirming the
+effectiveness of integrating technical indicators. The authors attributed the high performance to the 
+model’s ability to leverage the indicators' insights into market momentum and overbought/oversold 
+conditions, allowing for more informed short-term trend prediction.
 
 \subsection{Challenges}
 
 Despite advancements in deep learning models for stock prediction, several challenges remain. One major
 issue is \emph{overfitting}, where models perform well on historical data but fail to generalize 
 to unseen market conditions. To mitigate this, studies have employed dropout techniques, 
-\emph{L2 regularization}, and ensemble learning~\parencite{shaban2024SMPDL}.
+\emph{L2 regularization}, and ensemble learning~\parencite{shaban2024SMPDL, chang2024StockPrediction}.
 
 Another challenge is the selection of optimal technical indicators, as not all indicators contribute 
 equally to model performance. Future research should focus on automated feature selection techniques
@@ -115,58 +115,72 @@ data, further pushing the boundaries of financial \acrfull{ai} research.
 
 Table~\ref{tab:keycontrib} summarizes key contributions from studies on stock market prediction using deep learning. It highlights advancements in \acrshort{lstm}, \acrshort{gru}, and hybrid models, with notable improvements in forecasting accuracy through the integration of technical indicators and ensemble techniques.
 
-\begin{table}[H]
-\centering
-\caption{Key Contribution by Study}
-\label{tab:keycontrib}
-\begin{tabular}{rp{4cm}p{4cm}} \hline
-     \textbf{Study} & \textbf{Key Contribution} & \textbf{Demerit} \\ \hline\hline
+\begin{longtable}{p{2.5cm}p{5cm}p{5cm}}
+    \caption{Key Contribution by Study}
+    \label{tab:keycontrib}\\
+    \hline \textbf{Study} & \textbf{Key Contribution} & \textbf{Demerit} \\ \hline\hline \endfirsthead
+
+    \multicolumn{3}{c}{\textit{Continued from previous page}} \\ \hline
+     \textbf{Study} & \textbf{Key Contribution} & \textbf{Demerit} \\ \hline\hline \endhead
+
+    \hline \multicolumn{3}{r}{\textit{Continued on next page}} \\
+    \endfoot
+
+    \hline
+    \endlastfoot
      \parencite{guo2024LSTMStock} & \acrshort{lstm} based prediction using \acrshort{hft}, 
      incorporating technical indicators for enhanced accuracy.  & Limited generalizability to 
-     non-\acrshort{hft} environments. \\
+     non-\acrshort{hft} environments. the inclusion of technical indicators, while slightly improving classification accuracy, led to a higher prediction error in terms of actual price values in \acrshort{hft} context. \\
      \parencite{chang2024StockPrediction} & Comparison of \acrshort{lstm} and \acrshort{gru} for 
      stock prediction, demonstrating \acrshortpl{gru} efficiency in training time and performance. & 
-     Computationally expensive and requires extensive tuning. \\
+     Computationally expensive and requires extensive tuning. With only about 260 trading days per year, 
+     historical data was also limited.\\
      \parencite{nabipour2020DeepLearning} & Demonstrated \acrshortpl{lstm} superiority over 
-     traditional \acrshort{ml} models for stock prediction. & Does not account for external economic factors. \\ 
+     traditional \acrshort{ml} models for stock prediction. & The models are only trained and tested on 
+     Tehran Stock Exchange data. There is no validation on global or different-market datasets, which 
+     limits generalization. \\ 
      \parencite{shaban2024SMPDL} & Proposed a novel \acrshort{lstm}-\acrshort{bigru} model, 
-     achieving high forecasting accuracy. & Higher model complexity leads to increased training time. \\
+     achieving high forecasting accuracy. & Higher model complexity leads to increased training time. Also,
+     this complexity may limit scalability or real-time responsiveness in ultra-high-frequency trading 
+     systems where latency is critical.\\
      \parencite{phuoc2024StockPrediction} & Applied \acrshort{lstm} with \acrshort{macd}, 
      \acrshort{rsi}, and \acrshort{sma}, achieving 93\% accuracy in Vietnamese stock market 
-     predictions. & Results may not generalize well to global markets. \\
-     \parencite{agrawal2022StockPrediction} & Used \acrshort{xgboost} and deep learning models to
-     improve stock forecasting accuracy. & May overfit to historical data, reducing real-world applicability. \\
-     \parencite{parmar2018stock} & Explored machine learning techniques for stock market prediction, 
-     highlighting the effectiveness of ensemble learning methods. & Relies on traditional ML models without
-     deep learning comparison. \\
-     \parencite{balasubramanian2023SystematicSurvey} & Conducted a systematic literature review on 
-     \acrshort{ai}-driven stock market prediction techniques. & Does not perform original experiments but 
-     relies on findings from other studies. \\ 
-     \hline
-\end{tabular}
-\end{table}
+     predictions. & A notable limitation of the study is that it relies solely on structured historical
+     price data, excluding unstructured data sources such as financial news, sentiment analysis, or 
+     macroeconomic factors, which are known to significantly influence stock prices. Additionally, the 
+     study applies only one machine learning model (\acrshort{lstm}) without comparison to other models (e.g., 
+     \acrshort{svm}, \acrshort{rf}), limiting the scope of performance benchmarking and broader model 
+     validation. \\
+     \parencite{agrawal2022StockPrediction} & The paper proposes an Evolutionary Deep Learning Approach 
+     (EDLA) that integrates \acrshort{lstm} networks with correlation tensors derived from Stock Technical 
+     Indicators. & The model is limited to technical indicators only and does not incorporate external 
+     factors like news sentiment. \\
+     \parencite{parmar2018stock} & The paper introduces an ensemble approach that integrates predictions 
+     from multiple data sources—Twitter sentiment, web news sentiment, and Google search trends—using 
+     \acrshort{lstm} models. The final prediction is made using Weighted Average and 
+     Differential Evolution optimization to improve accuracy. & A notable limitation is the reliance on generic sentiment analysis tools like TextBlob, which may lack the domain-specific nuance required for financial texts. The authors acknowledge that this limits the sentiment scoring accuracy, especially for ambiguous financial terms. \\
+     \parencite{balasubramanian2023SystematicSurvey} & The paper provides a comprehensive survey of over 
+     300 recent studies, offering valuable insights into machine learning and deep learning techniques used
+     for stock market prediction. & Does not perform original experiments but 
+     relies on findings from other studies. \\ \hline
+\end{longtable}
 
-\subsection{Less relevant papers}
+\subsection{Research Motivation and Gap}
 
-The use of volume-based indicators has gained increasing attention in recent research 
-on technical analysis and stock prediction. \parencite{tsang2009OBV} provide one of the
-few empirical investigations into the profitability of the \acrfull{obv} trading rule.
-Their results demonstrate that OBV-based strategies can outperform the traditional
-buy-and-hold approach in several Asian markets, especially in Greater China, 
-highlighting OBV's potential in capturing investor sentiment through volume dynamics.
+Previous studies have predominantly introduced either standalone \acrfull{lstm} models or hybrid deep 
+learning architectures that integrate \acrfull{lstm} with \acrfull{bigru}. These models have shown strong 
+performance in stock market forecasting, especially for large-cap companies such as IBM, yielding high 
+predictive accuracy and low error metrics.
 
-Similarly,\parencite{marek2020mfi} examine the \acrfull{mfi} and show that, when 
-optimized, MFI-based trading strategies can consistently outperform the standard 
-buy-and-hold approach across a range of major S\&P 500 stocks. Their findings 
-reinforce the idea that volume-informed oscillators like MFI can significantly
-improve the predictive capability of stock models, especially when the parameters 
-are tailored to specific equities.
+While such results are promising, they were obtained using stocks with abundant historical data and 
+extensive media coverage. In contrast, companies like \acrfull{wday} present a different challenge. 
+As a mid-cap firm, \acrfull{wday} exhibits high volatility in its stock prices and relatively limited
+exposure in financial news and social platforms. This makes the prediction task more difficult due to the scarcity of data.
 
-In addition to model architecture and feature engineering, effective hyperparameter tuning plays a critical role in 
-enhancing deep learning performance. Traditional grid search methods often suffer from inefficiency, especially when 
-dealing with high-dimensional spaces where some parameters have significantly greater impact than others. Bergstra and 
-Bengio~\parencite{bergstra2012random} proposed \emph{random search} as a more efficient alternative, showing that randomly 
-sampling configurations often yields better results in fewer trials. Their findings are particularly relevant for deep 
-neural networks, where hyperparameters such as learning rate, batch size, and dropout have non-uniform effects on model 
-performance. In this project, random search is adopted as the primary strategy for tuning \acrshort{lstm} and 
-\acrshort{lstmgru} models, as it balances search space coverage with computational efficiency.
+To investigate the generalization and robustness of deep learning models in such settings, this study 
+proposes to compare two architectures: a standard \acrshortpl{lstm} model and a more complex hybrid
+\acrshort{lstmbigru} model. By evaluating their performance on WDAY's stock price prediction, we aim to 
+assess the added value of hybrid architectures and determine whether their increased complexity offers meaningful 
+improvements when dealing with low-information, highly volatile stocks.
+
+

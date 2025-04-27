@@ -36,7 +36,7 @@ middle band plus standard deviation, so we omit them to streamline features.\\
 \end{table}
 
 Details about the indicators are provided in Table~\ref{tab:docind}. Also the dataset with all the features
-selected are in Table~\ref{tab:app-selected-features}.
+selected are in Table~\ref{tab:dataset_structure}.
 
 \subsection{Data Splitting Strategy}
 
@@ -63,11 +63,20 @@ WDAY stock prices and associated technical indicators. Summary details for each 
 \end{tabular}
 \end{table}
 
-\paragraph{Note on Data Normalization:}  
-All feature normalization will be applied \emph{after} splitting the dataset
-into training, validation, and test sets. This ensures that information 
-from the validation or test data is not inadvertently introduced during
-training, a phenomenon known as \emph{data leakage}. 
+\subsection{Data Normalization:}
+All feature normalization is applied \emph{after} splitting the dataset into 
+training, validation, and test sets. This design choice is crucial to prevent 
+information from the validation or test sets from leaking into the training 
+process, a phenomenon known as \emph{data leakage}.
+
+For normalization, this study employs the \texttt{MinMaxScaler} from 
+\texttt{scikit-learn}, which scales features to a fixed range of $[0, 1]$. The 
+scaler is \emph{fit exclusively on the training set to capture the scale parameters 
+(i.e., minimum and maximum values) from the training data only}. These same 
+parameters are then used to transform the validation and test sets. This ensures 
+that no future information (i.e., from unseen data) influences the training 
+process, thereby \emph{preserving the integrity and generalization of the 
+model's evaluation}.
 
 \subsection{Model Architectures and Hyperparameter Tuning}
 
@@ -261,15 +270,17 @@ Both models demonstrated strong performance in predicting next-day stock prices,
         \leavevmode\\[1em]
         \textbf{LSTM:} The \acrshort{lstm} model (Figure~\ref{fig:lstm-training-performance}) achieved
             steady convergence with 
-            validation metrics closely tracking training metrics. The \acrshort{r2} plateaued above 0.94, 
+            validation metrics closely tracking training metrics. The \acrshort{r2} score stabilizes around 0.85 - 0.95, 
             indicating strong predictive power and minimal overfitting. \acrshort{mse} and \acrshort{mae} also 
             consistently decreased, demonstrating stable learning behavior.
         \leavevmode\\[1em]
         \textbf{LSTM-BiGRU:} The \acrshort{lstmbigru} model (Figure~\ref{fig:bigru-training-performance}), while 
         trained for fewer epochs, exhibited 
-        faster convergence and even higher validation performance, with an \acrshort{r2} score peaking above 0.99. This
-        suggests that the hybrid architecture was better able to capture temporal patterns and complex dynamics in the 
-        stock data.
+        faster convergence and even higher validation performance, with 
+        an \acrshort{r2}, improves steadily, reaching above 0.9 in 
+        later epochsvindicating the 
+        model is explaining a high proportion of variance in the target 
+        variable on unseen data.
     \item[Architecture Efficiency] 
         \leavevmode\\[1em]
         \textbf{LSTM \& LSTM-BiGRU:} Despite the increased architectural complexity, the \acrshort{lstmbigru} model

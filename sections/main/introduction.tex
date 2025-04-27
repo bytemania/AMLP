@@ -1,5 +1,4 @@
 \clearpage
-\pagenumbering{arabic}
 \pagestyle{plain}
 
 \section{Introduction}
@@ -52,16 +51,28 @@ real-time applications, such as algorithmic trading systems or stock monitoring 
 
 \subsection{Project scope}
 
-This research explores the application of deep learning models—specifically 
-\acrfull{lstm} and a hybrid \acrfull{lstmbigru} architecture for next-day stock price forecasting
-of \acrfull{wday}. The models are trained using a combination of raw market data, 
-including Open, High, Low, Close, and Volume (OHLCV) prices, as well as a diverse set of technical 
-indicators commonly used in financial analysis.
+This research explores the application of deep learning architectures, specifically 
+\acrfull{lstm} and a hybrid \acrfull{lstmbigru} for forecasting the next-day stock 
+price of \acrfull{wday}. The models are trained on a comprehensive dataset that 
+combines raw market pricing data including \acrfull{ohlcv} with a diverse set of 
+widely adopted technical indicators such as  \acrfull{macd}, \acrfull{rsi}, and
+\acrfull{bb}, which have been shown to enhance predictive 
+accuracy in stock forecasting 
+tasks~\parencite{guo2024LSTMStock, agrawal2022StockPrediction}.
 
-The primary goal is to evaluate and compare the predictive capabilities of the 
-\acrshort{lstm} and \acrshort{lstmbigru} models under varying market conditions. In doing so, the 
-study will examine how different technical features influence forecasting performance. Alongside 
-standard indicators such as the \acrfull{macd}, \acrfull{rsi}, and \acrfull{bb} will be evaluated.
+The primary objective is to evaluate and compare the predictive effectiveness 
+of both models under varying market conditions. While many prior studies have 
+focused on prominent technology firms (e.g., the  MAANG group\footnote{MAANG is an
+acronym for Meta (Facebook), Apple, Amazon, Netflix, and Google (Alphabet)—a group of 
+major U.S. tech companies commonly analyzed in stock market studies.}) or large 
+investment indices like the S\&P~500\footnote{The S\&P~500 (Standard \& Poor\'s 500) 
+is a stock market index that tracks the performance of 500 of the largest publicly 
+traded companies in the United States. It is widely regarded as a key indicator of 
+overall U.S. stock market health.}, this research aims to assess how 
+these models perform when applied to a comparatively less-followed and potentially 
+more volatile stock like \acrshort{wday}—offering insights 
+into model robustness in scenarios with limited public visibility and 
+potentially noisier data.
 
 Building on insights from previous literature~\parencite{parmar2018stock, nabipour2020DeepLearning}, 
 the project will implement a structured experimental pipeline. This includes the collection and 
@@ -70,11 +81,21 @@ metrics such as \acrfull{rmse}, \acrfull{mae}, and the \acrfull{r2} as recommend
 literature~\parencite{chang2024StockPrediction, phuoc2024StockPrediction}.
 
 By evaluating model architectures, input feature sets, and prediction outcomes, this study contributes
-toward more effective and interpretable applications of deep learning in financial forecasting. The 
+to more effective and interpretable applications of deep learning in financial forecasting. The 
 findings offer practical insights for investors, financial analysts, and AI researchers interested in 
 leveraging sequential modeling techniques for stock price 
 prediction~\parencite{balasubramanian2023SystematicSurvey, shaban2024SMPDL, guo2024LSTMStock, 
 agrawal2022StockPrediction}.
+
+This project has been developed in conjunction with the Deep Learning Neural Networks 
+module (SPEC1100: 2024--25) and adheres to the official guidance for cross-module 
+integration. As part of this effort, we implement and compare a baseline 
+\acrshort{lstm} model with a more complex hybrid \acrshort{lstmbigru} architecture. 
+Additionally, an in-depth investigation into hyperparameter optimization techniques is 
+conducted, constituting the agreed-upon additional work required for the Applied 
+Machine Learning (AML) Project Module. This report, along with a final presentation, 
+represents the exclusive deliverables for the AML component, as outlined in the module
+guidelines.
 
 \subsection{Report layout}
 

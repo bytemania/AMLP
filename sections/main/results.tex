@@ -10,7 +10,7 @@ Such evaluation is crucial in financial forecasting tasks, where poor generaliza
 can lead to significant mispredictions and financial loss.
 
 To ensure a robust assessment, we compute four widely used regression metrics 
-allowing for a detailed and balanced view of each model’s strengths and weaknesses the
+allowing for a detailed and balanced view of each model’s strengths and weaknesses. The  
 following metrics will be used:
 
 \begin{table}[H]
@@ -113,7 +113,7 @@ Figure~\ref{fig:prediction-combined} shows the predicted stock prices over time 
 
 As shown in the figure, the \acrshort{lstmbigru} model exhibits tighter alignment 
 with the real values, especially during volatile periods or sharp price changes 
-(as a example we can look at End of February or End of May). This
+(as an example we can look at End of February or End of May). This
 suggests a better temporal understanding and generalization capacity. The standalone
 LSTM model, while effective, displays slightly larger prediction deviations and 
 smoothing during abrupt changes.
@@ -133,3 +133,12 @@ series~\parencite{balasubramanian2023SystematicSurvey}. Based on
 Figure~\ref{fig:prediction-combined}
 where the \acrshort{lstmbigru} model exhibits better alignment with sudden 
 price shifts.
+
+Importantly, this study extends prior research by evaluating model performance on 
+\acrfull{wday}, a mid-cap stock characterized by high volatility and comparatively 
+limited media and analyst coverage. Unlike large-cap stocks frequently used in 
+previous studies, \acrshort{wday} presents a more realistic and challenging test case 
+for financial forecasting models. The strong results from the \acrshort{lstmbigru} model 
+in this context suggest that hybrid deep learning architectures not only scale to 
+lower-information, high-volatility environments but may also provide valuable 
+predictive improvements in such settings.

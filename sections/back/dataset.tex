@@ -1,38 +1,24 @@
+\begin{landscape}
+
 \clearpage
 \subsection{Dataset Description}
 \label{app:dataset}
 
-A comprehensive description of the dataset is provided in Table~\ref{tab:dataset_structure}, detailing each column's category, description, and objective.
+A comprehensive description of the dataset is provided in 
+Table~\ref{tab:dataset_structure}, detailing each column's category, 
+description, and objective.
 
-\begin{table}[H]
-\centering
-\label{tab:indicators}
-\caption{Indicators Category Explanation}
-\begin{tabular}{lp{12.3cm}}
-\hline \textbf{Category} & \textbf{Description} \\ \hline\hline
-Trend & 
-Measures the general direction in which the price is moving over a period (upward, downward, or 
-sideways). Helps detect long-term price patterns. \\
-Momentum & Indicates the speed or strength of a price movement. Useful for identifying 
-overbought/oversold conditions and potential reversals. \\
-Volatility & Reflects how much the price fluctuates over time. High volatility often signals 
-uncertainty and potential risk. \\
-Strength & Gauges the intensity or conviction behind a trend. High strength suggests a
-stronger, more reliable trend. \\
-\hline
-\end{tabular}
-\end{table}
-
-\begin{longtable}{llp{5cm}p{5cm}}
-    \caption{Stock Market Dataset}\label{tab:dataset_structure} \\
+\begin{longtable}{llp{8cm}p{8cm}p{1.5cm}}
+    \caption{Stock Market Dataset}
+    \label{tab:dataset_structure} \\
     \hline
-    \textbf{Column} & \textbf{Category} & \textbf{Description} & \textbf{Objective}  \\
+    \textbf{Feature} & \textbf{Category} & \textbf{Description} & \textbf{Objective} & \textbf{Selected}  \\
     \hline\hline
     \endfirsthead
 
     \multicolumn{4}{c}{\textit{Continued from previous page}} \\
     \hline
-    \textbf{Column Name} & \textbf{Category} & \textbf{Description} & \textbf{Objective} \\
+    \textbf{Feature} & \textbf{Category} & \textbf{Description} & \textbf{Objective} & \textbf{Selected} \\
     \hline\hline
     \endhead
 
@@ -41,139 +27,174 @@ stronger, more reliable trend. \\
 
     \hline
     \endlastfoot
-        datetime & Date 
+        \texttt{datetime} 
+        & Date 
         & Timestamp for the stock data. 
-        & Serves as the index for time-series forecasting. \\
-        open & Price 
+        & Serves as the index for time-series forecasting.
+        & Yes
+        \\
+        \texttt{open} 
+        & Price  
         & The stock's opening price for the day. 
-        & Helps analyze price gaps and trend formations. \\
-        high & Price 
+        & Helps analyze price gaps and trend formations. 
+        & Yes
+        \\
+        \texttt{high} 
+        & Price 
         & The highest price reached during the day. 
-        & Indicates intraday volatility and resistance levels. \\
-        low & Price 
+        & Indicates intraday volatility and resistance levels.
+        & Yes
+        \\
+        \texttt{low} 
+        & Price 
         & The lowest price recorded during the day. 
-        & Shows intraday volatility and potential support levels. \\
-        close & Price 
-        & The stock's closing price for the day. & Primary feature for forecasting future prices. \\
-        volume & Activity 
+        & Shows intraday volatility and potential support levels. 
+        & Yes
+        \\
+        \texttt{close} 
+        & Price 
+        & The stock's closing price for the day. 
+        & Primary feature for forecasting future prices. 
+        & Yes 
+        \\
+        \texttt{volume} 
+        & Price 
         & Total number of shares traded in a day. 
-        & Measures market activity and confirms price movements. \\
-        SMA & Trend 
+        & Measures market activity and confirms price movements. 
+        & Yes
+        \\ \rowcolor{lightgray}
+        \texttt{sma} 
+        & Trend 
         & Simple Moving Average, smooths price fluctuations over a period. 
-        & Identifies long-term trends and reduces price noise. \\
-        EMA & Trend 
+        & Identifies long-term trends and reduces price noise. 
+        Was Removed because ema reacts faster to price changes compared to sma, which treats all past prices equally.
+        & No 
+        \\
+        \texttt{ema} 
+        & Trend 
         & Exponential Moving Average, giving more weight to recent prices. 
-        & Detects trend direction and reversals faster than SMA. \\
-        WMA & Trend 
+        & Detects trend direction and reversals faster than SMA. 
+        & Yes
+        \\ \rowcolor{lightgray}
+        \texttt{wma} 
+        & Trend 
         & Weighted Moving Average, emphasizing recent data more. 
-        & Highlights recent price movements more effectively. \\
-        MACD & Momentum 
-        & Difference between two EMAs to detect trend strength. 
-        & Identifies trend reversals and momentum shifts. \\
-        RSI 
+        & Highlights recent price movements more effectively. When
+          compared to wma, ema’s weighting decays exponentially, which is smoother and often less noisy.
+        & No
+        \\
+        \texttt{macd} 
+        & Trend 
+        & Difference between two emas to detect trend strength. 
+        & Identifies trend reversals and momentum shifts. 
+        & Yes
+        \\
+        \texttt{macd\_hist} 
+        & Momentum 
+        & The MACD Histogram is one of the most powerful tools for visualizing momentum shifts in price trends. A positive histogram 
+        represents bullish momentum while negative represents bearish.
+        & Identifies momentum shifts. 
+        & Yes
+        \\ \rowcolor{lightgray}
+        \texttt{macd\_signal} 
+        & Trend 
+        & The signal line is derived directly from the macd line using 
+          an ema.
+        & Removed because it's directly correlated with mac and 
+          $macd\_hist=macd-macd\_signal$.
+        & No 
+        \\
+        \texttt{rsi}
         & Momentum 
         & Measures the speed and magnitude of price movements (0-100 scale). 
-        & Detects overbought (>70) and oversold (<30) conditions. \\
-        MOM & Momentum 
+        & Detects overbought (>70) and oversold (<30) conditions.
+        & Yes
+        \\
+        \texttt{mom} 
+        & Momentum 
         & Tracks the rate of price change over a set period. 
-        & Measures trend acceleration and potential reversals. \\
-        STOCH & Momentum
-        & Compares closing prices to price range over time. 
-        & Helps identify possible trend reversals. \\
-        CCI & Strength 
+        & Measures trend acceleration and potential reversals. 
+        & Yes
+        \\
+        \texttt{stoch\_slow\_k}
+        & Momentum 
+        & Current closing price relative to the recent low/high range 
+        & Identifies overbought or oversold conditions; signals 
+        potential reversals 
+        & Yes 
+        \\
+        \texttt{stoch\_slow\_d}
+        & Momentum 
+        & 3-period SMA of the Stoch Slow \%K line 
+        & Smooths the \%K line to confirm trend signals and reduce noise
+        & Yes 
+        \\
+        \texttt{cci} 
+        & Momentum 
         & Measures price deviation from the historical average. 
-        & Detects overbought/oversold market conditions. \\
-        ADX & Strength 
+        & Detects overbought/oversold market conditions. 
+        & Yes
+        \\
+        \texttt{adx}
+        & Trend 
         & Measures the strength of a trend. 
-        & Confirms whether a trend is strong enough to trade. \\
-        ROC & Momentum 
+        & Confirms whether a trend is strong enough to trade. 
+        & Yes
+        \\
+        \texttt{roc}
+        & Momentum 
         & Calculates the percentage price change over a given period. 
-        & Measures trend strength and momentum shifts. \\
-        WILLR & Strength
-        & Similar to RSI, identifies overbought/oversold levels. 
-        & Helps detect potential trend reversals. \\
-        BB & Volatility 
-        & Uses standard deviation bands around a moving average. 
-        & Identifies volatility levels and potential breakouts. \\
-        ATR & Volatility 
+        & Measures trend strength and momentum shifts. 
+        & Yes
+        \\
+        \texttt{willr}
+        & Momentum
+        & Measures the current closing price relative to the highest high
+        over a lookback period. 
+        & Identifies overbought or oversold levels; helps spot potential 
+        trend reversals. 
+        & Yes   
+        \\
+        \texttt{bbands\_middle\_band} 
+        & Volatility 
+        & The simple moving average (\texttt{sma}) of the closing price 
+        & Represents the trend baseline; used as a smoothed reference 
+          for price movement 
+        & Yes 
+        \\ \rowcolor{lightgray}
+        \texttt{bbands\_upper\_band} 
+        & Volatility 
+        & Middle Band plus a multiple of the standard deviation 
+        & Indicates potential overbought zone; used for breakout or
+          mean-reversion strategies. Removed because its derived from 
+          the \texttt{bbands\_middle\_band} with a standard deviation.
+        & No 
+        \\ \rowcolor{lightgray}
+        \texttt{bbands\_lower\_band}  
+        & Volatility 
+        & Middle Band minus a multiple of the standard deviation 
+        & Indicates potential oversold zone; used for breakout or 
+          mean-reversion strategies. Removed because its derived from 
+          the \texttt{bbands\_middle\_band} with a standard deviation.
+        & No 
+        \\
+        \texttt{atr} 
+        & Volatility 
         & Measures market volatility based on price range expansions. 
-        & Helps set stop-loss levels and detect risk conditions. \\
-        OBV & Volume 
+        & Helps set stop-loss levels and detect risk conditions. 
+        & Yes
+        \\
+        \texttt{obv}
+        & Volume 
         & Cumulative volume flow based on price movements. 
-        & Confirms trends using volume-based signals. \\
-        MFI & Volume
+        & Confirms trends using volume-based signals. 
+        & Yes
+        \\
+        \texttt{mfi}
+        & Volume
         & Combines price and volume to assess money flow. 
-        & Detects buying and selling pressure for trend confirmation. \\
+        & Detects buying and selling pressure for trend confirmation. 
+        & Yes\\
         \hline
 \end{longtable}
-
-\begin{table}[H]
-\label{tab:docind}
-\centering
-\caption{Technical Indicators with Links to Investopedia}
-\begin{tabular}{lp{4cm}p{7.5cm}}
-\hline
-\textbf{Type} & \textbf{Indicator} & \textbf{Investopedia Link} \\
-\hline\hline
-Trend & \acrfull{sma} & \url{https://www.investopedia.com/terms/s/sma.asp} \\
-\cline{2-3}
-      & \acrfull{ema} & \url{https://www.investopedia.com/terms/e/ema.asp} \\
-\cline{2-3}
-      & \acrfull{wma} & \url{https://www.investopedia.com/terms/w/wma.asp} \\
-\hline
-Momentum & \acrfull{macd} & \url{https://www.investopedia.com/terms/m/macd.asp} \\
-\cline{2-3}
-         & \acrfull{rsi} & \url{https://www.investopedia.com/terms/r/rsi.asp} \\
-\cline{2-3}
-         & \acrfull{mom} & \url{https://www.investopedia.com/terms/m/momentum.asp} \\
-\cline{2-3}
-         & \acrfull{roc} & \url{https://www.investopedia.com/terms/r/rateofchange.asp} \\
-\cline{2-3}
-         & \acrfull{sso} & \url{https://www.investopedia.com/terms/s/stochasticoscillator.asp} \\
-\cline{2-3}
-         & \acrfull{mfi} & \url{https://www.investopedia.com/terms/m/mfi.asp} \\
-\hline
-Volatility & \acrfull{bb} & \url{https://www.investopedia.com/terms/b/bollingerbands.asp} \\
-\cline{2-3}
-           & \acrfull{atr} & \url{https://www.investopedia.com/terms/a/atr.asp} \\
-\hline
-Strength & \acrfull{adx} & \url{https://www.investopedia.com/terms/a/adx.asp} \\
-\cline{2-3}
-         & \acrfull{cci} & \url{https://www.investopedia.com/terms/c/commoditychannelindex.asp} \\
-\cline{2-3}
-         & \acrfull{willr} & \url{https://www.investopedia.com/terms/w/williamsr.asp} \\
-\cline{2-3}
-         & \acrfull{obv} & \url{https://www.investopedia.com/terms/o/onbalancevolume.asp} \\
-\hline
-\end{tabular}
-\end{table}
-
-\begin{table}[H]
-\centering
-\caption{Selected Features for Stock Price Prediction}
-\label{tab:app-selected-features}
-\begin{tabular}{llp{6cm}}
-\hline
-\textbf{Feature}            & \textbf{Category}              & \textbf{Description / Reason for Selection} \\ \hline\hline
-\texttt{open}               & Price-Based                    & Opening price provides the market's starting point for the day \\ 
-\texttt{high}               & Price-Based                    & Captures the intraday price ceiling, useful for measuring volatility \\ 
-\texttt{low}                & Price-Based                    & Captures the intraday price floor, useful for measuring volatility \\ 
-\texttt{volume}             & Price-Based                    & Reflects market activity and liquidity levels \\ 
-\texttt{ema}                & Trend Indicator                & Tracks recent price trends with greater sensitivity than \texttt{sma} \\ 
-\texttt{macd}               & Momentum Indicator             & Shows trend momentum and possible reversals using two \texttt{ema}s \\ 
-\texttt{macd\_hist}         & Momentum Indicator             & Highlights convergence/divergence between \texttt{macd} and its signal line \\ 
-\texttt{rsi}                & Momentum Indicator             & Detects overbought and oversold levels based on recent price changes \\ 
-\texttt{stoch\_slow\_k}     & Momentum Indicator             & Indicates momentum by comparing close price to recent range \\ 
-\texttt{stoch\_slow\_d}     & Momentum Indicator             & Signal line for \texttt{stoch\_slow\_k} to confirm trend signals \\ 
-\texttt{cci}                & Momentum Indicator             & Measures price deviation from its average to detect cycles \\ 
-\texttt{adx}                & Trend Strength Indicator       & Quantifies the strength of a trend regardless of direction \\ 
-\texttt{mom}                & Momentum Indicator             & Measures rate of price change, helpful in identifying shifts \\ 
-\texttt{roc}                & Momentum Indicator             & Tracks percentage rate of price change over time \\
-\texttt{willr}              & Momentum Indicator             & Identifies overbought and oversold conditions \\ 
-\texttt{bbands\_middle\_band} & Volatility Indicator         & Represents price mean, used to evaluate relative highs and lows \\ 
-\texttt{atr}                & Volatility Indicator           & Captures true market volatility including price gaps \\ 
-\texttt{obv}                & Volume-Based Indicator         & Combines volume and price direction to gauge pressure \\ 
-\texttt{mfi}                & Volume-Based Indicator         & Assesses buying/selling pressure using both price and volume \\ 
-\texttt{close}              & Target Variable                & Closing price to be predicted for the next trading day \\ \hline
-\end{tabular}
-\end{table}
+\end{landscape}

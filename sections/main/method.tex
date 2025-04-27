@@ -6,6 +6,10 @@ learning models, drawing from previous research in the
 field~\parencite{parmar2018stock, nabipour2020DeepLearning,
 chang2024StockPrediction,agrawal2022StockPrediction, shaban2024SMPDL}. 
 
+The objective is to assess whether similarly high levels of predictive performance—such as those 
+demonstrated in prior studies on large-cap, information-rich stocks—can also be achieved when applied to 
+\acrshort{wday}, a mid-cap stock characterized by higher volatility and less available external data.
+
 We present here the step-by-step process undertaken to build, train, and evaluate deep
 learning models for \acrshort{wday} stock price prediction, ensuring that each methodological
 decision is justified based on prior studies or logical reasoning.
@@ -70,7 +74,7 @@ The study leverages historical stock price data for \acrshort{wday}, obtained fr
 Twelve Stock Market API. This dataset includes daily open, high, low, close, and volume prices. In
 addition, the study incorporates multiple technical indicators, to
 enhance predictive accuracy~\parencite{parmar2018stock, nabipour2020DeepLearning,
-guo2024LSTMStock}. 
+guo2024LSTMStock}. These technical indicators used for modeling are sourced from the Twelve Stock Market website through its REST API, ensuring consistent and reliable access to historical data for \acrshort{wday}.
 
 We will organize our indicators into distinct categories, each designed to quantify a unique aspect that contributes to the final stock price:
 
@@ -89,16 +93,23 @@ We will organize our indicators into distinct categories, each designed to quant
 
 A detailed overview of the dataset is available in Appendix~\ref{app:dataset}.
 
+\begin{landscape}
 \subsection{Data Preprocessing}
 
 \subsubsection{Timeframe and frequency}
 
-The objective of this study is to \emph{predict the next day’s closing
-price of \acrfull{wday} stock}. Based on the comparative analysis in 
-Table~\ref{tab:data-window}, a 10-year historical window (2014 to 2025, current date) with a daily 
-interval is selected. 
+The objective of this study is to \emph{predict the next day’s closing price of
+\acrfull{wday} stock}. Based on the comparative analysis in 
+Table~\ref{tab:data-window}, a \emph{10-year historical window (2014 to 2025, 
+current date) with a daily interval is selected}. This choice is informed by prior 
+research emphasizing the suitability of long-term daily data for medium-range 
+forecasting.
 
-\begin{landscape}
+Unlike studies focusing on \acrfull{hft}, which use minute-level data over short 
+durations to capture intraday volatility, this research deliberately excludes 
+intraday strategies. The emphasis is instead placed on end-of-day predictions using 
+broader economic context captured through daily closing prices.
+
 \begin{table}[H]
 \centering
 \caption{Recommended historical data span for different time intervals in stock price prediction using LSTM-based models.}
@@ -124,7 +135,6 @@ interval is selected.
      \hline
 \end{tabular}
 \end{table}
-\fillandplacepagenumber
 \end{landscape}
 
 \subsubsection{Feature transformation}
@@ -138,7 +148,7 @@ are fundamental for accurate forecasting models~\parencite{chang2024StockPredict
 By setting the date as an index, the dataset benefits in multiple ways:
 \begin{description}
     \item[Chronological Integrity] Ensures that stock prices are analyzed in the correct order,
-    avoiding inconsistencies in sequential learning models like LSTM and GRU~\parencite{guo2024LSTMStock}.
+    avoiding inconsistencies in sequential learning models like \acrshort{lstm} and \acrshort{gru}~\parencite{guo2024LSTMStock}.
     \item[Enhanced Feature Extraction] Facilitates time-based calculations such as moving averages, 
     momentum, and rolling-window statistics that provide deeper insights into stock 
     trends~\parencite{shaban2024SMPDL}.
